@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Card,Button,Table,Tag} from 'antd';
+import XLSX from 'xlsx';
 import moment from 'moment';
 import {getArticlse} from '../../requests/index';
 export default class Article extends Component {
@@ -86,6 +87,32 @@ export default class Article extends Component {
           limited:pageSize
         },this.getArticlse)
     }
+    // 转excel
+    toExcel=()=>{
+        const columnTitle = {
+          id:'id',
+          title:'标题',
+          author:'作者',
+          amount:'阅读量',
+          createAt:'创建时间'
+        }
+        const data = [Object.keys(this.state.dataSource[0]).map(item=>columnTitle[item])];
+        this.state.dataSource.forEach((item)=>{
+          data.push([
+            item.id,
+            item.title,
+            item.author,
+            item.amount,
+            moment(item.createAt).format('YYYY年MM月DD日 HH:mm:ss')
+          ])
+        })
+      		/* convert state to workbook */
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "SheetJS");
+        /* generate XLSX file and send to client */
+        XLSX.writeFile(wb, "sheetjs.xlsx")
+    }
     componentDidMount(){
        this.getArticlse()
     }
@@ -93,7 +120,7 @@ export default class Article extends Component {
         return (
         <Card 
         title="Card"
-        extra={<Button>导出Excle</Button>}>
+        extra={<Button onClick={this.toExcel}>导出Excle</Button>}>
              <Table loading = { this.state.isLoading } rowKey={(record)=>record.id} dataSource={this.state.dataSource} columns={this.state.columns} pagination ={{showSizeChanger:true,total:this.state.total,hideOnSinglePage:true,onChange:this.pageChange}} />;
         </Card>
         )
