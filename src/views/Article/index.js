@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {Card,Button,Table,Tag} from 'antd';
+import {Card,Button,Table,Tag,Modal,message} from 'antd';
 import XLSX from 'xlsx';
 import moment from 'moment';
-import {getArticlse} from '../../requests/index';
+import {getArticlse,articleDetele} from '../../requests/index';
 export default class Article extends Component {
     constructor(props){
       super(props);
@@ -16,7 +16,7 @@ export default class Article extends Component {
       }
     }
     // 加载数据
-    getArticlse = ()=>{
+    getArticlseClick = ()=>{
       this.setState({
         isLoading:true
       })
@@ -58,11 +58,11 @@ export default class Article extends Component {
         columns.push({
           key: "action",
           title: "操作",
-          render:(h)=>{
+          render:(ele)=>{
             return (
               <Button.Group>
                  <Button size="small" type='primary'>编辑</Button>
-                 <Button size="small" type='danger'>删除</Button>
+                 <Button onClick={this.articleDeteleClick.bind(this,ele)} size="small" type='danger'>删除</Button>
               </Button.Group>
             )
           }  
@@ -85,7 +85,7 @@ export default class Article extends Component {
          this.setState({
           offset:pageSize * (current - 1),
           limited:pageSize
-        },this.getArticlse)
+        },this.getArticlseClick)
     }
     // 转excel
     toExcel=()=>{
@@ -113,15 +113,30 @@ export default class Article extends Component {
         /* generate XLSX file and send to client */
         XLSX.writeFile(wb, "sheetjs.xlsx")
     }
+    // 删除
+    articleDeteleClick=(ele)=>{
+        Modal.confirm({
+          title:`确定删除${ele.title}吗？`,
+          onOk:()=>{
+            articleDetele(ele.id)
+            .then(res=>{
+              message.success('This is a success message');
+              this.setState({
+                offset:0,
+              },this.getArticlseClick)
+            })
+          }
+        })
+    }
     componentDidMount(){
-       this.getArticlse()
+       this.getArticlseClick()
     }
     render() {
         return (
         <Card 
         title="Card"
         extra={<Button onClick={this.toExcel}>导出Excle</Button>}>
-             <Table loading = { this.state.isLoading } rowKey={(record)=>record.id} dataSource={this.state.dataSource} columns={this.state.columns} pagination ={{showSizeChanger:true,total:this.state.total,hideOnSinglePage:true,onChange:this.pageChange}} />;
+             <Table loading = { this.state.isLoading } rowKey={(record)=>record.id} dataSource={this.state.dataSource} columns={this.state.columns} pagination ={{current:this.state.offset/10+1,showSizeChanger:true,total:this.state.total,hideOnSinglePage:true,onChange:this.pageChange}} />;
         </Card>
         )
     }

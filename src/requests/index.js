@@ -20,6 +20,11 @@ service.interceptors.response.use((resp)=>{
         message.error('请求失败！');
     }
 })
+// 文章列表
 export const getArticlse =(offset,limited)=>{
     return service.post('/api/v1/articlelist',{offset,limited})
+}
+// 删除文章
+export const articleDetele =(id)=>{
+    return service.post(`/api/v1/articleDetele/${id}`)
 }
