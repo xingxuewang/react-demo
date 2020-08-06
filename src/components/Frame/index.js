@@ -23,7 +23,7 @@ class Index extends Component {
                     mode="inline"
                     style={{ height: '100%', borderRight: 0 }}
                     onClick={this.menuClick}
-                    selectedKeys={[this.props.location.pathname]}
+                    selectedKeys={[this.props.location.pathname.split('/').slice(0,3).join('/')]}
                 >
                     {
                         this.props.menu.map((item)=>{

@@ -61,7 +61,7 @@ export default class Article extends Component {
           render:(ele)=>{
             return (
               <Button.Group>
-                 <Button size="small" type='primary'>编辑</Button>
+                 <Button onClick={this.toEdit.bind(this,ele)} size="small" type='primary'>编辑</Button>
                  <Button onClick={this.articleDeteleClick.bind(this,ele)} size="small" type='danger'>删除</Button>
               </Button.Group>
             )
@@ -127,6 +127,10 @@ export default class Article extends Component {
             })
           }
         })
+    }
+    // 去编辑
+    toEdit=(ele)=>{
+      this.props.history.push(`/admin/Article/edit/${ele.id}`);
     }
     componentDidMount(){
        this.getArticlseClick()
