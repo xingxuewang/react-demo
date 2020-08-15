@@ -28,3 +28,11 @@ export const getArticlse =(offset,limited)=>{
 export const articleDetele =(id)=>{
     return service.post(`/api/v1/articleDetele/${id}`)
 }
+//获取文章
+export const getArticle =(id)=>{
+    return service.post(`/api/v1/article/${id}`)
+}
+//修改文章
+export const articleEdit =(id,data)=>{
+    return service.post(`/api/v1/articleEdit/${id}`,data)
+}
