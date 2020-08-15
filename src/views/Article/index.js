@@ -140,7 +140,7 @@ export default class Article extends Component {
         <Card 
         title="Card"
         extra={<Button onClick={this.toExcel}>导出Excle</Button>}>
-             <Table loading = { this.state.isLoading } rowKey={(record)=>record.id} dataSource={this.state.dataSource} columns={this.state.columns} pagination ={{current:this.state.offset/10+1,showSizeChanger:true,total:this.state.total,hideOnSinglePage:true,onChange:this.pageChange}} />;
+             <Table loading = { this.state.isLoading } rowKey={(record)=>record.id} dataSource={this.state.dataSource} columns={this.state.columns} pagination ={{current:this.state.offset/10+1,showSizeChanger:true,total:this.state.total,hideOnSinglePage:true,onChange:this.pageChange}} />
         </Card>
         )
     }
