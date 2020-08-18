@@ -5,7 +5,8 @@ import {
     Dashboard,
     Login,
     NotFound,
-    Settings
+    Settings,
+    Notification
 } from '../views/index';
 import {
     UnorderedListOutlined,
@@ -46,5 +47,9 @@ export const adminRouter = [{
         icon:<SettingOutlined />,
         title:'设置',
         isNav:true
+    },
+    {
+        pathname: "/admin/Notification",
+        component: Notification,
     },
 ]

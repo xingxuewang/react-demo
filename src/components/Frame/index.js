@@ -15,7 +15,7 @@ class Index extends Component {
        }
     menu = (
         <Menu onClick={this.dropdownClick}>
-          <Menu.Item key="0">
+          <Menu.Item key="/admin/Notification">
             <Badge dot>
                 <span>通知中心</span>
             </Badge>
