@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu,Dropdown,Badge} from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
 import logo from './logo.jpg';
 import './index.css';
@@ -9,12 +10,35 @@ class Index extends Component {
     menuClick=({key})=>{
      this.props.history.push(key)
     }
+    dropdownClick=({key})=>{
+        this.props.history.push(key)
+       }
+    menu = (
+        <Menu onClick={this.dropdownClick}>
+          <Menu.Item key="0">
+            <Badge dot>
+                <span>通知中心</span>
+            </Badge>
+          </Menu.Item>
+          <Menu.Item key="/admin/Settings">
+            <span>设置中心</span>
+          </Menu.Item>
+          <Menu.Item key="/login">
+             <span>退出</span>
+          </Menu.Item>
+        </Menu>
+      );
     render() {
         return (
             <Layout style={{height:'100%'}}>
             <Header className="header">
                 <div className="logo">
-                    <img src={logo} alt='logo'></img>
+                     <div><img src={logo} alt='logo'></img></div>
+                     <Badge count={10} offset={[10,-5]}>
+                        <Dropdown overlay={this.menu} trigger={['click']}>
+                            <span>Click me <DownOutlined /></span>
+                        </Dropdown>
+                     </Badge>
                 </div>
             </Header>
             <Layout>
