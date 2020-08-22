@@ -1,3 +1,5 @@
+import actionType from '../actions/actionType'
+
 const initState ={
     isLoading:false,
     list:[{
@@ -13,9 +15,28 @@ const initState ={
         hasRead:true
     }]
 }
-export default(state=initState,action)=>{
+export default(state = initState,action)=>{
    switch(action.type){
-       default:
-           return state
+       case actionType.MARK_NOTIFICATIONS_BY_ID:
+           const {list,other} = state;
+           return {
+            ...other,
+            list:list.map(item=>{
+                if(item.id === action.payload.id){
+                    item.hasRead = true;
+                }
+                return item
+            })
+          }
+          case actionType.MARK_NOTIFICATIONS_BY_ALL:
+            return {
+             ...state,
+             list:state.list.map(item=>{
+                 item.hasRead = true;
+                 return item
+             })
+           }
+            default:
+                return state
    }
 }

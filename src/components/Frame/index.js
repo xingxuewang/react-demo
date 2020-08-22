@@ -20,21 +20,23 @@ class Index extends Component {
     dropdownClick=({key})=>{
         this.props.history.push(key)
        }
-    menu = (
-        <Menu onClick={this.dropdownClick}>
-          <Menu.Item key="/admin/Notification">
-            <Badge dot = { this.props.notificationsCount }>
-                <span>通知中心</span>
-            </Badge>
-          </Menu.Item>
-          <Menu.Item key="/admin/Settings">
-            <span>设置中心</span>
-          </Menu.Item>
-          <Menu.Item key="/login">
-             <span>退出</span>
-          </Menu.Item>
-        </Menu>
-      );
+    menu = () => {
+        return (
+            <Menu onClick={this.dropdownClick}>
+                <Menu.Item key="/admin/Notification">
+                    <Badge dot = { this.props.notificationsCount }>
+                        <span>通知中心</span>
+                    </Badge>
+                </Menu.Item>
+                <Menu.Item key="/admin/Settings">
+                    <span>设置中心</span>
+                </Menu.Item>
+                <Menu.Item key="/login">
+                    <span>退出</span>
+                </Menu.Item>
+                </Menu>
+        )
+    };
     render() {
         return (
             <Layout style={{height:'100%'}}>
@@ -42,7 +44,7 @@ class Index extends Component {
                 <div className="logo">
                      <div><img src={logo} alt='logo'></img></div>
                      <Badge count={this.props.notificationsCount} offset={[10,-5]}>
-                        <Dropdown overlay={this.menu} trigger={['click']}>
+                        <Dropdown overlay={this.menu()} trigger={['click']}>
                             <span>Click me <DownOutlined /></span>
                         </Dropdown>
                      </Badge>
