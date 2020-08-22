@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Layout, Menu,Dropdown,Badge} from 'antd';
+import { connect } from 'react-redux';
 import { DownOutlined } from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
 import logo from './logo.jpg';
 import './index.css';
 const { Header, Content, Sider } = Layout;
+const mapState = state =>{
+    return {
+        notificationsCount:state.notifications.list.filter(item=>{return !item.hasRead}).length
+    }
+  }
 @withRouter
+@connect(mapState)
 class Index extends Component {
     menuClick=({key})=>{
      this.props.history.push(key)
@@ -16,7 +23,7 @@ class Index extends Component {
     menu = (
         <Menu onClick={this.dropdownClick}>
           <Menu.Item key="/admin/Notification">
-            <Badge dot>
+            <Badge dot = { this.props.notificationsCount }>
                 <span>通知中心</span>
             </Badge>
           </Menu.Item>
@@ -34,7 +41,7 @@ class Index extends Component {
             <Header className="header">
                 <div className="logo">
                      <div><img src={logo} alt='logo'></img></div>
-                     <Badge count={10} offset={[10,-5]}>
+                     <Badge count={this.props.notificationsCount} offset={[10,-5]}>
                         <Dropdown overlay={this.menu} trigger={['click']}>
                             <span>Click me <DownOutlined /></span>
                         </Dropdown>
