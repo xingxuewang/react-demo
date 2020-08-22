@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Card,Button,List,Avatar,Badge} from 'antd';
+import { connect } from 'react-redux';
 const data = [
     {
       title: 'Ant Design Title 1',
@@ -15,8 +16,11 @@ const data = [
     },
   ];
   
-export default class index extends Component {
+  @connect()
+  class index extends Component {
     render() {
+      console.log(this.props);
+      
         return (
         <Card title="通知中心" bordered={ false } extra={<Button>全部标记为已读</Button>}>
              <List
@@ -36,3 +40,4 @@ export default class index extends Component {
         )
     }
 }
+export default index
