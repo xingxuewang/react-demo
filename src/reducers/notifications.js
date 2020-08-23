@@ -34,6 +34,16 @@ const initState = {
 }
 export default (state = initState, action) => {
     switch (action.type) {
+        case actionType.START_AJAX:
+            return {
+                ...state,
+                isLoading:true
+            }
+        case actionType.END_AJAX:
+            return {
+                ...state,
+                isLoading:false
+            }
         case actionType.MARK_NOTIFICATIONS_BY_ID:
             const {
                 list, other
