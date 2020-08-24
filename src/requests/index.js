@@ -36,3 +36,7 @@ export const getArticle =(id)=>{
 export const articleEdit =(id,data)=>{
     return service.post(`/api/v1/articleEdit/${id}`,data)
 }
+//查询通知
+export const getNotifications =()=>{
+    return service.get(`/api/v1/notifications`)
+}

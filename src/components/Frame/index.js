@@ -3,6 +3,7 @@ import { Layout, Menu,Dropdown,Badge} from 'antd';
 import { connect } from 'react-redux';
 import { DownOutlined } from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
+import { getNotificationsList } from '../../actions/notifications';
 import logo from './logo.jpg';
 import './index.css';
 const { Header, Content, Sider } = Layout;
@@ -12,7 +13,7 @@ const mapState = state =>{
     }
   }
 @withRouter
-@connect(mapState)
+@connect(mapState,{getNotificationsList})
 class Index extends Component {
     menuClick=({key})=>{
      this.props.history.push(key)
@@ -37,6 +38,9 @@ class Index extends Component {
                 </Menu>
         )
     };
+    componentDidMount(){
+       this.props.getNotificationsList();
+    }
     render() {
         return (
             <Layout style={{height:'100%'}}>

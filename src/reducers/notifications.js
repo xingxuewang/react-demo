@@ -1,5 +1,4 @@
 import actionType from '../actions/actionType'
-
 const initState = {
     isLoading: false,
     list: [{
@@ -34,38 +33,43 @@ const initState = {
 }
 export default (state = initState, action) => {
     switch (action.type) {
-        case actionType.START_AJAX:
+        case actionType.SET_LIST:
             return {
                 ...state,
-                isLoading:true
+                list: action.payload.list
             }
-        case actionType.END_AJAX:
-            return {
-                ...state,
-                isLoading:false
-            }
-        case actionType.MARK_NOTIFICATIONS_BY_ID:
-            const {
-                list, other
-            } = state;
-            return {
-                ...other,
-                list: list.map(item => {
-                    if (item.id === action.payload.id) {
-                        item.hasRead = true;
-                    }
-                    return item
-                })
-            }
-            case actionType.MARK_NOTIFICATIONS_BY_ALL:
+            case actionType.START_AJAX:
                 return {
                     ...state,
-                    list: state.list.map(item => {
-                        item.hasRead = true;
-                        return item
-                    })
+                    isLoading: true
                 }
-                default:
-                    return state
+                case actionType.END_AJAX:
+                    return {
+                        ...state,
+                        isLoading: false
+                    }
+                    case actionType.MARK_NOTIFICATIONS_BY_ID:
+                        const {
+                            list, other
+                        } = state;
+                        return {
+                            ...other,
+                            list: list.map(item => {
+                                if (item.id === action.payload.id) {
+                                    item.hasRead = true;
+                                }
+                                return item
+                            })
+                        }
+                        case actionType.MARK_NOTIFICATIONS_BY_ALL:
+                            return {
+                                ...state,
+                                list: state.list.map(item => {
+                                    item.hasRead = true;
+                                    return item
+                                })
+                            }
+                            default:
+                                return state
     }
 }
