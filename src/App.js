@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { adminRouter } from './Routes/index'
 import {Switch,Route,Redirect} from 'react-router-dom';
 import {Frame} from './components/index';
+import { connect } from 'react-redux';
+const mapState = state => ({
+   isLogin:state.user.isLogin
+})
+@connect(mapState)
 class App extends Component{
     render(){
       return (
+        this.props.isLogin
+        ?
         <Frame menu={adminRouter.filter((item)=>{return item.isNav})}>
             <Switch>
                 {
@@ -18,6 +25,8 @@ class App extends Component{
                 <Redirect to='/404'/>
             </Switch>
         </Frame>
+        :
+        <Redirect to='/login' />
       )
     }
 }

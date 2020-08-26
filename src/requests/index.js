@@ -40,3 +40,7 @@ export const articleEdit =(id,data)=>{
 export const getNotifications =()=>{
     return service.get(`/api/v1/notifications`)
 }
+//人员登录
+export const login =()=>{
+    return service.post(`/api/v1/login`)
+}
