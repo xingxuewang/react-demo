@@ -1,6 +1,10 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd';
 import './index.css'
+import {connect} from 'react-redux';
+import {login} from '../../actions/user';
+import {Redirect} from 'react-router-dom';
+
 const layout = {
   labelCol: {
     span: 5,
@@ -15,12 +19,19 @@ const tailLayout = {
     span: 16,
   },
 };
-
-const Demo = () => {
+const mapState = state =>({
+  isLogin:state.user.isLogin,
+  isLoading:state.user.isLoading,
+})
+const Demo = (props) => {
   const onFinish = values => {
-    console.log('Success:', values);
+    props.login(values)
   };
   return (
+    props.isLogin 
+    ?
+    <Redirect to='/admin'/>
+    :
     <Form
       {...layout}
       onFinish={onFinish}
@@ -36,7 +47,7 @@ const Demo = () => {
           },
         ]}
       >
-        <Input />
+        <Input disabled={ props.isLoading } />
       </Form.Item>
 
       <Form.Item
@@ -49,14 +60,14 @@ const Demo = () => {
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password disabled={props.isLoading} />
       </Form.Item>
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={ props.isLoading }>
           Submit
         </Button>
       </Form.Item>
     </Form>
   );
 };
-export default Demo
+export default connect(mapState,{login})(Demo)
