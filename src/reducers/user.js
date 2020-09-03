@@ -1,10 +1,9 @@
-import actionType from '../actions/actionType'
+import actionType from '../actions/actionType';
+const isLogin = Boolean(window.localStorage.getItem('authToken'));
+const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
 const initState = {
-    id:'',
-    displayName:'',
-    avatar:'',
-    role:'',
-    isLogin:false,
+    ...userInfo,
+    isLogin,
     isLoading:false
 }
 export default (state = initState, action) => { 

@@ -6,6 +6,8 @@ const startLogin =()=>{
   }
 }
 const loginFailed =()=>{
+    window.localStorage.removeItem('authToken');
+    window.localStorage.removeItem('userInfo');
     return {
       type:actionType.LOGIN_FAILED
     }
@@ -24,6 +26,8 @@ export const login =(userInfo)=>{
         loginRequests(userInfo)
         .then(res=>{
             if(res.status === 200){
+              window.localStorage.setItem('authToken',res.data.data.authToken);
+              window.localStorage.setItem('userInfo',JSON.stringify(res.data.data));
               setTimeout(()=>{
                 dispatch(loginSuccess(res.data.data))
               },1000)
@@ -33,4 +37,9 @@ export const login =(userInfo)=>{
             }
         })
     }
+}
+export const loginOut =()=>{
+  return dispatch =>{
+      dispatch(loginFailed())
+  }
 }

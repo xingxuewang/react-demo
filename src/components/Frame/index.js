@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
-import { Layout, Menu,Dropdown,Badge} from 'antd';
+import { Layout, Menu,Dropdown,Badge,Avatar} from 'antd';
 import { connect } from 'react-redux';
-import { DownOutlined } from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
 import { getNotificationsList } from '../../actions/notifications';
+import { loginOut } from '../../actions/user';
 import logo from './logo.jpg';
 import './index.css';
 const { Header, Content, Sider } = Layout;
 const mapState = state =>{
     return {
-        notificationsCount:state.notifications.list.filter(item=>{return !item.hasRead}).length
+        notificationsCount:state.notifications.list.filter(item=>{return !item.hasRead}).length,
+        avatar:state.user.avatar,
+        displayName:state.user.displayName
     }
   }
 @withRouter
-@connect(mapState,{getNotificationsList})
+@connect(mapState,{getNotificationsList,loginOut})
 class Index extends Component {
     menuClick=({key})=>{
      this.props.history.push(key)
     }
-    dropdownClick=({key})=>{
-        this.props.history.push(key)
+    dropdownClick=({key})=>{ 
+        if(key === '/loginOut'){
+           this.props.loginOut();
+        }
+        else{
+            this.props.history.push(key)
+        }
        }
     menu = () => {
         return (
@@ -32,7 +39,7 @@ class Index extends Component {
                 <Menu.Item key="/admin/Settings">
                     <span>设置中心</span>
                 </Menu.Item>
-                <Menu.Item key="/login">
+                <Menu.Item key="/loginOut">
                     <span>退出</span>
                 </Menu.Item>
                 </Menu>
@@ -49,7 +56,10 @@ class Index extends Component {
                      <div><img src={logo} alt='logo'></img></div>
                      <Badge count={this.props.notificationsCount} offset={[10,-5]}>
                         <Dropdown overlay={this.menu()} trigger={['click']}>
-                            <span>Click me <DownOutlined /></span>
+                           <div>
+                                <Avatar src={this.props.avatar}/>
+                                <span style={{marginLeft:'10px'}}>欢迎您！{this.props.displayName}</span>
+                           </div>
                         </Dropdown>
                      </Badge>
                 </div>
