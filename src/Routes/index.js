@@ -6,7 +6,8 @@ import {
     Login,
     NotFound,
     Settings,
-    Notification
+    Notification,
+    Noauth
 } from '../views/index';
 import {
     UnorderedListOutlined,
@@ -27,11 +28,13 @@ export const adminRouter = [{
         component: Dashboard,
         title:'仪表盘',
         icon:<DashboardOutlined />,
-        isNav:true
+        isNav:true,
+        roles:['001','002','003']
     },
     {
         pathname: "/admin/Article/edit/:id",
         component: ArticleEdit,
+        roles:['001','002']
     },
     {
         pathname: "/admin/Article",
@@ -39,17 +42,25 @@ export const adminRouter = [{
         icon:<UnorderedListOutlined />,
         exact:true,
         title:'文章列表',
-        isNav:true
+        isNav:true,
+        roles:['001','002','003']
     },
     {
         pathname: "/admin/Settings",
         component: Settings,
         icon:<SettingOutlined />,
         title:'设置',
-        isNav:true
+        isNav:true,
+        roles:['001']
     },
     {
         pathname: "/admin/Notification",
         component: Notification,
+        roles:['001','002','003']
+    },
+    {
+        pathname: "/admin/noauth",
+        component: Noauth,
+        roles:['001','002','003']
     },
 ]
