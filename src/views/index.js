@@ -33,6 +33,10 @@ const Noauth = Loadable({
     loader:()=>import('./Noauth'),
     loading:Loading
 })
+const Profile = Loadable({
+    loader:()=>import('./Profile'),
+    loading:Loading
+})
 export {
     ArticleList,
     ArticleEdit,
@@ -41,5 +45,6 @@ export {
     NotFound,
     Settings,
     Notification,
-    Noauth
+    Noauth,
+    Profile
 }

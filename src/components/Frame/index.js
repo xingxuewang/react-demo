@@ -36,8 +36,8 @@ class Index extends Component {
                         <span>通知中心</span>
                     </Badge>
                 </Menu.Item>
-                <Menu.Item key="/admin/Settings">
-                    <span>设置中心</span>
+                <Menu.Item key="/admin/profile">
+                    <span>个人设置</span>
                 </Menu.Item>
                 <Menu.Item key="/loginOut">
                     <span>退出</span>

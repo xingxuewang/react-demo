@@ -20,6 +20,14 @@ const loginSuccess =(userInfo)=>{
         }
     }
 }
+export const setAcatar =(avatar)=>{
+  return {
+      type:actionType.SET_AVATAR,
+      payload:{
+        avatar
+      }
+  }
+}
 export const login =(userInfo)=>{
     return dispatch =>{
         dispatch(startLogin())

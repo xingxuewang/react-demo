@@ -7,7 +7,8 @@ import {
     NotFound,
     Settings,
     Notification,
-    Noauth
+    Noauth,
+    Profile
 } from '../views/index';
 import {
     UnorderedListOutlined,
@@ -61,6 +62,11 @@ export const adminRouter = [{
     {
         pathname: "/admin/noauth",
         component: Noauth,
+        roles:['001','002','003']
+    },
+    {
+        pathname: "/admin/profile",
+        component: Profile,
         roles:['001','002','003']
     },
 ]
