@@ -30,8 +30,11 @@ class Profile extends Component {
               })
             }
             else{
-                message.error('This is an error message');
+                message.error('图片上传失败！');
             }
+        })
+        .catch(()=>{
+            message.error('图片上传失败！');
         })
     }
     render() {
