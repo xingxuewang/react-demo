@@ -67,7 +67,8 @@ export default class Article extends Component {
             )
           }  
         })
-        
+        // /设置前是否卸载
+        if(!this.updater.isMounted(this)) return;
         this.setState({
           total:res.data.total,
           columns,
@@ -75,6 +76,8 @@ export default class Article extends Component {
         })
       })
       .finally(()=>{
+        // /设置前是否卸载
+        if(!this.updater.isMounted(this)) return;
         this.setState({
           isLoading:false
         })
