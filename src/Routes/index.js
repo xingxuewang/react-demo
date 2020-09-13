@@ -52,7 +52,7 @@ export const adminRouter = [{
         icon:<SettingOutlined />,
         title:'设置',
         isNav:true,
-        roles:['001']
+        roles:['001','002']
     },
     {
         pathname: "/admin/Notification",

@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-
-export default class index extends Component {
+import {observer} from 'mobx-react'
+import Counter from '../../mobx/index'
+@observer
+class Index extends Component {
     render() {
         return (
             <div>
-                设置中心
+                <button onClick={Counter.decrement}>-</button>
+                {Counter.count}
+                <button onClick={Counter.increment}>+</button>
             </div>
         )
     }
 }
+export default Index
