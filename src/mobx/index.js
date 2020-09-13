@@ -7,6 +7,8 @@ class Counter {
         return this.count * 2
     }
     @action.bound increment(){
+        console.log(this);
+        
         this.count += 1;
     }
     @action.bound decrement(){
